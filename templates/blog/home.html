@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    {% block title %} <title>Home</title> {% endblock title %}
+    <title>{% block title %}Home {% endblock title %}</title>
 </head>
 <body>
 {% block content %}
@@ -25,10 +26,16 @@
                     {% for post in page_obj %}
 
                         <div class="card-body">
-
-                            <h2 class="card-title">{{ post.title }}</h2>
-                            <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
-                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                            {% if post.cover %}
+                                <img class="card-img-top" src={{ post.cover.url }}>
+                                <h2 class="card-title">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                            {% else %}
+                                <h2 class="card-title">{{ post.title }}</h2>
+                                <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                            {% endif %}
                         </div>
                         <div class="card-footer text-muted">
                             Posted on {{ post.date }} by
@@ -39,20 +46,19 @@
 
                 <!-- Pagination -->
                 <ul class="pagination justify-content-center mb-4">
-                    <span class="step-links">
-                        {% if page_obj.has_previous %}
-                             <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                        {% endif %}
-                        <span class="current">
-                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                        </span>
-                        {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}">next</a>
-                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
+
+                    {% if page_obj.has_previous %}
+                        <a class="page-link" href="?page=1">&larr; First</a>
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a>
+                    {% endif %}
+
+                    {% if page_obj.has_next %}
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &rarr;</a>
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &rarr;</a>
+                    {% endif %}
+
                 </ul>
+
 
             </div>
 
@@ -78,31 +84,16 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li>
-                                        <a href="#">Web Design</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">HTML</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Freebies</a>
-                                    </li>
-                                </ul>
+                                {% for category in Categories %}
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">{{ category.title }}</a>
+                                        </li>
+
+                                    </ul>
+                                {% endfor %}
                             </div>
-                            <div class="col-lg-6">
-                                <ul class="list-unstyled mb-0">
-                                    <li>
-                                        <a href="#">JavaScript</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">CSS</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Tutorials</a>
-                                    </li>
-                                </ul>
-                            </div>
+
                         </div>
                     </div>
                 </div>

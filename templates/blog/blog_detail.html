@@ -1,55 +1,94 @@
 {% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% block title %} <title>Home</title> {% endblock title %}
-</head>
-<body>
+
+     {% block title %} {{ post.title }} {% endblock title %}
+
 {% block content %}
-  <!-- Page Content -->
-  <div class="container">
+    <!-- Page Content -->
+    <div class="container">
 
-    <div class="row">
+        <div class="row">
 
-      <!-- Blog Entries Column -->
-      <div class="col-md-8">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
 
-        <h1 class="my-4">{{ post.title }}
-        </h1>
+                <h1> {{ post.title }} </h1>
 
-        <!-- Blog Post -->
-        <div class="card mb-4">
+                <!-- Blog Post -->
+                <div class="card mb-4">
 
-          <img class="card-img-top" src={{ post.cover.url }} alt="hello" >
-          <div class="card-body">
 
-            <p class="card-text">{{ post.body }}</p>
+                    <div class="card-body">
+                        {% if post.cover %}
+                            <img class="card-img-top" src={{ post.cover.url }}>
+                            <p> class="card-text">{{ post.body }}</p>
+                        {% else %}
+                            <p> class="card-text">{{ post.body }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on {{ post.date }} by
+                        <a href="#">{{ post.author }}</a>
+                    </div>
 
-          </div>
-          <div class="card-footer text-muted">
-            Posted on {{ post.date }} by
-            <a href="#">{{ post.author }}</a>
-          </div>
+                </div>
+
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Search</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-append">
+                <button class="btn btn-secondary" type="button">Go!</button>
+              </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                {% for category in Categories %}
+                                    <ul class="list-unstyled mb-0">
+                                        <li>
+                                            <a href="#">{{ category.title }}</a>
+                                        </li>
+
+                                    </ul>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Side Widget</h5>
+                    <div class="card-body">
+                        You can put anything you want inside of these side widgets. They are easy to use, and feature
+                        the new Bootstrap 4 card containers!
+                    </div>
+                </div>
+
+            </div>
 
         </div>
-
-
-
-      </div>
-
-
-      </div>
+        <!-- /.row -->
 
     </div>
-    <!-- /.row -->
+    <!-- /.container -->
 
-  </div>
-  <!-- /.container -->
-
-  <!-- Footer -->
+    <!-- Footer -->
 {% endblock content %}
 
-</body>
-</html>
