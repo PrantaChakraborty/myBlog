@@ -1,122 +1,72 @@
 {% extends 'base.html' %}
 {% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Home {% endblock title %}</title>
-</head>
-<body>
+<title>
+    {% block title %}
+        Home
+    {% endblock title %}
+</title>
 {% block content %}
-    <!-- Page Content -->
-    <div class="container">
+    <div class="col-md-8">
+        <!-- Blog Post -->
+        <div class="card mb-4">
+            {% for post in page_obj %}
 
-        <div class="row">
-
-            <!-- Blog Entries Column -->
-            <div class="col-md-8">
-
-                <h1 class="my-4">Page Heading
-                    <small>Secondary Text</small>
-                </h1>
-
-                <!-- Blog Post -->
-                <div class="card mb-4">
-                    {% for post in page_obj %}
-
-                        <div class="card-body">
-                            {% if post.cover %}
-                                <img class="card-img-top" src={{ post.cover.url }}>
-                                <h2 class="card-title">{{ post.title }}</h2>
-                                <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
-                                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
-                            {% else %}
-                                <h2 class="card-title">{{ post.title }}</h2>
-                                <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
-                                <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
-                            {% endif %}
-                        </div>
-                        <div class="card-footer text-muted">
-                            Posted on {{ post.date }} by
-                            <a href="#">{{ post.author }}</a>
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <!-- Pagination -->
-                <ul class="pagination justify-content-center mb-4">
-
-                    {% if page_obj.has_previous %}
-                        <a class="page-link" href="?page=1">&larr; First</a>
-                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a>
+                <div class="card-body">
+                    {% if post.cover %}
+                        <img class="card-img-top" src={{ post.cover.url }}>
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
+                    {% else %}
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <p class="card-text">{{ post.body|safe|truncatewords:20 }}</p>
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
                     {% endif %}
-
-                    {% if page_obj.has_next %}
-                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &rarr;</a>
-                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &rarr;</a>
-                    {% endif %}
-
-                </ul>
-
-
-            </div>
-
-            <!-- Sidebar Widgets Column -->
-            <div class="col-md-4">
-
-                <!-- Search Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Search</h5>
-                    <div class="card-body">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for...">
-                            <span class="input-group-append">
-                <button class="btn btn-secondary" type="button">Go!</button>
-              </span>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Categories Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Categories</h5>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                {% for category in Categories %}
-                                    <ul class="list-unstyled mb-0">
-                                        <li>
-                                            <a href="#">{{ category.title }}</a>
-                                        </li>
-
-                                    </ul>
-                                {% endfor %}
-                            </div>
-
-                        </div>
-                    </div>
+                <div class="card-footer text-muted">
+                    Posted on {{ post.date }} by
+                    <a href="#">{{ post.author }}</a>
                 </div>
-
-                <!-- Side Widget -->
-                <div class="card my-4">
-                    <h5 class="card-header">Side Widget</h5>
-                    <div class="card-body">
-                        You can put anything you want inside of these side widgets. They are easy to use, and feature
-                        the new Bootstrap 4 card containers!
-                    </div>
-                </div>
-
-            </div>
-
+            {% endfor %}
         </div>
-        <!-- /.row -->
+        {% block category %}
+            <!-- Categories Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">Categories</h5>
+                <div class="card-body">
+                    <div class="row">
+                        {% for category in Categories %}
+                            <div class="col-lg-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li>
+                                        <a href="#">{{ category.title }}</a>
+                                    </li>
 
+                                </ul>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        {% endblock category%}
+
+        <!-- Pagination -->
+        <ul class="pagination justify-content-center mb-4">
+
+            {% if page_obj.has_previous %}
+                <a class="page-link" href="?page=1">&larr; First</a>
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&larr; Previous</a>
+            {% endif %}
+
+            {% if page_obj.has_next %}
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &rarr;</a>
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &rarr;</a>
+            {% endif %}
+
+        </ul>
     </div>
-    <!-- /.container -->
 
-    <!-- Footer -->
-{% endblock content %}
 
-</body>
-</html>
+
+{% endblock %}
