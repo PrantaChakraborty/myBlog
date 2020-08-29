@@ -1,7 +1,8 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Post, Category
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, CreateView
+from .forms import PostCreateForm
 # Create your views here.
 
 
@@ -28,3 +29,14 @@ class PostDetailView(DetailView):
 
 class AboutView(TemplateView):
     template_name = 'about.html'
+
+
+class BlogCreateView(CreateView):
+    model = Post
+    template_name = 'blog/create_blog.html'
+    form_class = PostCreateForm
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+

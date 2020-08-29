@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +23,7 @@
 <body>
 
   <!-- Navigation -->
+  <div>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="{% url 'home' %}">MyBlog</a>
@@ -39,7 +41,7 @@
             <a class="nav-link" href="{% url 'about' %}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
+            <a class="nav-link" href="{% url 'create_blog' %}">+New Blog</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Contact</a>
@@ -48,11 +50,11 @@
       </div>
     </div>
   </nav>
+  </div>
   {% block content %}
 
   {% endblock content %}
-<!-- Footer -->
-<!-- Footer -->
+
 <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
