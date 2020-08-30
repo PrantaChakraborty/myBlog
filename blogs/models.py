@@ -1,5 +1,5 @@
 import uuid
-
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -15,10 +15,7 @@ class Post(models.Model):
     cover = models.ImageField(upload_to='blog_cover/', blank=True)
     title = models.CharField(max_length=250)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    author = models.ForeignKey(
-        'auth.User',
-        on_delete=models.CASCADE,
-    )
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     body = models.TextField(null=False)
     date = models.DateField(auto_now_add=True)
 

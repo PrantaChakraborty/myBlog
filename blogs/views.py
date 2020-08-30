@@ -1,8 +1,11 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.urls import reverse_lazy
+
 from .models import Post, Category
-from django.views.generic import DetailView, TemplateView, CreateView
-from .forms import PostCreateForm
+from django.views.generic import DetailView, TemplateView
+from django.views.generic.edit import UpdateView, DeleteView, CreateView
+from .forms import PostCreateForm, PostUpdateForm
 # Create your views here.
 
 
@@ -31,7 +34,7 @@ class AboutView(TemplateView):
     template_name = 'about.html'
 
 
-class BlogCreateView(CreateView):
+class PostCreateView(CreateView):
     model = Post
     template_name = 'blog/create_blog.html'
     form_class = PostCreateForm
@@ -40,3 +43,14 @@ class BlogCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'blog/edit_blog.html'
+    form_class = PostUpdateForm
+
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/delete_blog.html'
+    success_url = reverse_lazy('home')
