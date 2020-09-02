@@ -9,17 +9,13 @@
 
 
 {% block content %}
-<h2>New Blog</h2>
-<form action="" method="POST">
+
+<form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="container">
         <br>
-        <div class="form-group row">
-            <label class="col-sm-1 col-form-label"></label>
-            <div class="col-sm-4">
-                <h3>Enter Details</h3>
-            </div>
-        </div>
+        <h3>New Blog</h3>
+
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Title:</label>
             <div class="col-sm-4">
@@ -47,7 +43,7 @@
         <div class="form-group row">
             <label class="col-sm-1 col-form-label"></label>
             <div class="col-sm-4">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Create</button>
             </div>
         </div>
     </div>
