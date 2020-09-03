@@ -13,7 +13,7 @@ from .forms import PostCreateForm, PostUpdateForm
 def homeView(request):
     post_display = Post.objects.all()
     category_display = Category.objects.all()
-    paginator = Paginator(post_display, 3) # display 3 post per page
+    paginator = Paginator(post_display, 3)  # display 3 post per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {

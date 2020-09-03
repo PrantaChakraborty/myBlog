@@ -151,6 +151,13 @@ AUTHENTICATION_BACKENDS = (
 )
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = "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"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'admin@myblog.com'
+
 
 # django all_auth
 AUTH_USER_MODEL = 'users.CustomUser' # Custom user model is created on users app
