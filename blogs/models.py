@@ -19,6 +19,11 @@ class Post(models.Model):
     body = models.TextField(null=False)
     date = models.DateField(auto_now_add=True)
 
+    class Meta:
+        permissions = [
+            ('special_permission', 'Can read all posts'),
+        ]
+
     def __str__(self):
         return self.title
 
