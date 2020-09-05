@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-    {% block title %}
-        Home
-    {% endblock title %}
+{% block title %}
+    Home
+{% endblock title %}
 
 {% block content %}
     <div class="col-md-8">
@@ -50,13 +50,13 @@
 
         <!-- Search Widget -->
         <div class="card my-4">
-            <h5 class="card-header">Search</h5>
+            <h5 class="card-header">Search By Title </h5>
             <div class="card-body">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-append">
-                <button class="btn btn-secondary" type="button">Go!</button>
-              </span>
+                    <form class="form-inline" action="{% url 'search_result' %}" method="get">
+                        <input name=q type="text" class="form-control" placeholder="Search for...">
+
+                        </form>
                 </div>
             </div>
         </div>

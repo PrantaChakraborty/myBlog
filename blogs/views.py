@@ -1,12 +1,12 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    PermissionRequiredMixin,
     UserPassesTestMixin)
 from .models import Post, Category
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from .forms import PostCreateForm, PostUpdateForm
 
@@ -72,3 +72,14 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):  # new
         obj = self.get_object()
         return obj.author == self.request.user
+
+
+class PostSearchListView(LoginRequiredMixin, ListView):
+    model = Post
+    context_object_name = 'posts'
+    template_name = 'blog/search_result.html'
+    login_url = 'account_login'
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        return Post.objects.filter(Q(title__icontains=query))
