@@ -150,17 +150,17 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey'
-EMAIL_HOST_PASSWORD = "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"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'prantachakraborty46@gmail.com'
+EMAIL_HOST_PASSWORD = "4422pranta"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'admin@myblog.com'
 
 
 # django all_auth
-AUTH_USER_MODEL = 'users.CustomUser' # Custom user model is created on users app
+AUTH_USER_MODEL = 'users.CustomUser'  # Custom user model is created on users app
 ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
