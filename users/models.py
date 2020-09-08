@@ -5,4 +5,4 @@ from django.db import models
 
 
 class CustomUser(AbstractUser):
-    pass
+    email = models.EmailField(null=False, blank=False)
