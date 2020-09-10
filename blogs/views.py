@@ -6,10 +6,10 @@ from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     UserPassesTestMixin
 )
-from .models import Post, Category
+from .models import Post, Category, Comment
 from django.views.generic import DetailView, TemplateView, ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
-from .forms import PostCreateForm, PostUpdateForm
+from .forms import PostCreateForm, PostUpdateForm, CommentCreateForm, CommentUpdateForm
 
 
 # Create your views here.
@@ -47,7 +47,6 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     template_name = 'blog/create_blog.html'
     form_class = PostCreateForm
     login_url = 'account_login'
-
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -96,3 +95,15 @@ class PostCategoryView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Post.objects.filter(Q(category__title__icontains=Post.category))
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentCreateForm
+    login_url = 'account_login'
+    template_name = 'blog/blog_detail.html'
+    success_url = reverse_lazy('detail_view')
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)

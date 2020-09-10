@@ -27,10 +27,26 @@
                 Posted on {{ post.date }} by
                 <a href="#">{{ post.author }}</a>
             </div>
-        <p> <a href="{% url 'blog_edit' post.id %}">Edit</a>|
-        <a href="{% url 'blot_delete' post.id %}">Delete</a></p>
-        <p>Back to <a href="{% url 'home' %}">All Blogs</a></p>
-        </div>
 
+            <p><a href="{% url 'blog_edit' post.id %}">Edit</a>|
+                <a href="{% url 'blot_delete' post.id %}">Delete</a></p>
+            <p>Back to <a href="{% url 'home' %}">All Blogs</a></p>
+        </div>
+        <h3>Comments:</h3>
+        {% for comment in post.comments.all %}
+            <p>
+                <span class="font-weight-bold">{{ comment.author }}&middot;</span>
+                {{ comment }}
+            </p>
+        {% empty %}
+            <p>No comments here yet :(</p>
+
+        {% endfor %}
+      <form method="post" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Add Comment</button>
+
+    </form>
     </div>
 {% endblock %}

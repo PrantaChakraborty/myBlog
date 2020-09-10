@@ -26,6 +26,12 @@
                 <div class="card-footer text-muted">
                     Posted on {{ post.date }} by
                     <a href="#">{{ post.author }}</a>
+                    {% for comment in post.comments.all %}
+                        <p>
+                            <span class="font-weight-bold">{{ comment.author }}&middot;</span>
+                            {{ comment }}
+                        </p>
+                    {% endfor %}
                 </div>
             {% endfor %}
         </div>
@@ -56,7 +62,7 @@
                     <form class="form-inline" action="{% url 'search_result' %}" method="get">
                         <input name=q type="text" class="form-control" placeholder="Search for...">
 
-                        </form>
+                    </form>
                 </div>
             </div>
         </div>
