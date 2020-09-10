@@ -4,7 +4,8 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
-    UserPassesTestMixin)
+    UserPassesTestMixin
+)
 from .models import Post, Category
 from django.views.generic import DetailView, TemplateView, ListView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
@@ -47,6 +48,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     form_class = PostCreateForm
     login_url = 'account_login'
 
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
@@ -83,3 +85,14 @@ class PostSearchListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         return Post.objects.filter(Q(title__icontains=query))
+
+
+class PostCategoryView(LoginRequiredMixin, ListView):
+    model = Post
+    context_object_name = 'post_list'
+    template_name = 'blog/post_category_view.html'
+    login_url = 'account_login'
+    paginate_by = 3
+
+    def get_queryset(self):
+        return Post.objects.filter(Q(category__title__icontains=Post.category))

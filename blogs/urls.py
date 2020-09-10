@@ -7,6 +7,7 @@ from .views import (
         PostUpdateView,
         PostDeleteView,
         PostSearchListView,
+        PostCategoryView
 )
 
 urlpatterns = [
@@ -17,5 +18,6 @@ urlpatterns = [
     path('post/<uuid:pk>/edit/', PostUpdateView.as_view(), name='blog_edit'),
     path('post/<uuid:pk>/delete/', PostDeleteView.as_view(), name='blot_delete'),
     path('post/search/', PostSearchListView.as_view(), name='search_result'),
+    path('post/category/', PostCategoryView.as_view(), name='post_category_view'),
 
 ]
