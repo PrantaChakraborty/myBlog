@@ -26,12 +26,8 @@
                 <div class="card-footer text-muted">
                     Posted on {{ post.date }} by
                     <a href="#">{{ post.author }}</a>
-                    {% for comment in post.comments.all %}
-                        <p>
-                            <span class="font-weight-bold">{{ comment.author }}&middot;</span>
-                            {{ comment }}
-                        </p>
-                    {% endfor %}
+
+
                 </div>
             {% endfor %}
         </div>

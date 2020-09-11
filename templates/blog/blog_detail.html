@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 <title>
     {% block title %}
 
@@ -32,21 +33,34 @@
                 <a href="{% url 'blot_delete' post.id %}">Delete</a></p>
             <p>Back to <a href="{% url 'home' %}">All Blogs</a></p>
         </div>
-        <h3>Comments:</h3>
-        {% for comment in post.comments.all %}
-            <p>
-                <span class="font-weight-bold">{{ comment.author }}&middot;</span>
-                {{ comment }}
-            </p>
+        {% with comments.count as total_comments %}
+            <h2>
+                {{ total_comments }} comment {{ total_comments|pluralize }}
+            </h2>
+        {% endwith %}
+        {% for object in comments %}
+
+            <div class="card-footer text-muted">
+                <p>
+                    <span class="font-weight-bold">{{ object.author }}&middot;</span>
+                    {{ object.comment }}
+                </p>
+
+            </div>
+
         {% empty %}
             <p>No comments here yet :(</p>
 
         {% endfor %}
-      <form method="post" action="">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-primary">Add Comment</button>
-
-    </form>
+        {% if new_comment %}
+            <h2>Your comment has been added</h2>
+        {% else %}
+            <h2>Add new comment</h2>
+            <form action="." method="post" onsubmit="clear()">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <button class="btn btn-primary" type="submit">Add comment</button>
+            </form>
+        {% endif %}
     </div>
 {% endblock %}
