@@ -44,6 +44,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         return context
 '''
 
+
 @login_required
 def post_detail_view(request, pk):
     post = get_object_or_404(Post, id=pk)
@@ -117,12 +118,12 @@ class PostSearchListView(LoginRequiredMixin, ListView):
 
 class PostCategoryView(LoginRequiredMixin, ListView):
     model = Post
-    context_object_name = 'post_list'
+    context_object_name = 'categories'
     template_name = 'blog/post_category_view.html'
     login_url = 'account_login'
-    paginate_by = 3
+    #paginate_by = 3
 
     def get_queryset(self):
-        return Post.objects.filter(Q(category__title__icontains=Post.category))
+        return Post.objects.filter(category_id=self.kwargs.get('pk'))
 
 

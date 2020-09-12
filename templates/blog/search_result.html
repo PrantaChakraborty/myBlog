@@ -3,11 +3,17 @@
 {% load crispy_forms_tags %}
 {% block title %} Search {% endblock title %}
 {% block content %}
-    {% for post in posts %}
-        <div class="container">
+    <div class="container">
+        {% for post in posts %}
 
-            <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            {% if post %}
 
-    {% endfor %}
-</div>
+                <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+            {% else %}
+                <h2>Sorry No search result.</h2>
+                <p>Back to <a href="{% url 'home' %}">Home</a></p>
+            {% endif %}
+
+        {% endfor %}
+    </div>
 {% endblock content %}

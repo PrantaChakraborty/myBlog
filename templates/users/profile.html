@@ -3,5 +3,15 @@
     {{ user.username }}
 {% endblock title %}
 {% block content %}
-    <a href="{% url 'account_password_change' %}">Change Password</a>
+     <div class="card my-4">
+            <h5 class="card-header">Profile</h5>
+            <div class="card-body">
+
+                    <h3>Name: {{ user.username }}</h3>
+                    <h5>Email: {{ user.email }}</h5>
+                    <a href="{% url 'account_password_change' %}">Change Password</a>
+
+            </div>
+        </div>
+
 {% endblock content %}
