@@ -1,10 +1,65 @@
 {% extends 'base.html' %}
 {% load static %}
 <title>
-        {% block title %}
-            About
-        {% endblock title %}
-    </title>
+    {% block title %}
+        About
+    {% endblock title %}
+</title>
 {% block content %}
+    <style>
+
+.social-buttons a{
+  display: inline-flex;
+  text-decoration: none;
+  font-size: 18px;
+  width: 60px;
+  height: 60px;
+  color: rgba(1, 31, 255, 0.98);
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin: 0 10px;
+}
+
+.social-buttons a::before{
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, #fd1253, #1058ff);
+  border-radius: 100%;
+  z-index: -1;
+  transition: 0.3s ease-in;
+}
+
+.social-buttons a:hover::before{
+  transform: scale(0);
+}
+
+.social-buttons a i{
+  transition: 0.2s ease-in;
+}
+
+.social-buttons a:hover i{
+  background: linear-gradient(45deg, #600af4, #ff1d8f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: scale(3);
+}
+    </style>
+    <div class="card my-4">
+        <h5 class="card-header">Profile</h5>
+        <div class="card-body">
+            <h3>Name: Pranta Chakraborty</h3>
+            <div class="social-buttons">
+                <a href="https://web.facebook.com/pranta.chakraborty.9"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/in/pranta-chakraborty-83802615b/"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://github.com/PrantaChakraborty"><i class="fab fa-github"></i></a>
+                <a href="https://bitbucket.org/pranta07/"><i class="fab fa-bitbucket"></i></a>
+
+            </div>
+        </div>
+    </div>
+
 
 {% endblock %}

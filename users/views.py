@@ -11,7 +11,7 @@ class SignUpPageView(generic.CreateView):
     template_name = 'account/signup.html'
 
 
-class PorfilePageView(generic.TemplateView):
+class ProfilePageView(generic.TemplateView):
     template_name = 'users/profile.html'
 
 
