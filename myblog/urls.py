@@ -19,9 +19,12 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
+                  path('admin/myblogadmin/', admin.site.urls),
                   path('accounts/', include('users.urls')),
                   path('', include('blogs.urls')),
                   path('accounts/', include('allauth.urls')),
+              ]
 
-              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

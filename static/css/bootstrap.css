@@ -157,8 +157,11 @@ a {
   text-decoration: none;
   background-color: transparent;
 }
+a:visited {
+  color: #636;
+}
 
-a:hover {
+a:active, a:hover, a:focus {
   color: #0056b3;
   text-decoration: underline;
 }
@@ -10322,7 +10325,7 @@ a.text-dark:hover, a.text-dark:focus {
      word-wrap: break-word;
      background-color: #fff;
      background-clip: border-box;
-     border: 1px solid #3da5f;
+     border: 1px solid #33aeff;
      border-radius: 0
  }
 

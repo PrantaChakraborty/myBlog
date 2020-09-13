@@ -17,7 +17,7 @@ from .forms import PostCreateForm, PostUpdateForm, CommentCreateForm, CommentUpd
 
 
 # list view
-def homeView(request):
+def home_view(request):
     post_display = Post.objects.all()
     category_display = Category.objects.all()
     paginator = Paginator(post_display, 3)  # display 3 post per page
@@ -115,15 +115,30 @@ class PostSearchListView(LoginRequiredMixin, ListView):
         query = self.request.GET.get('q')
         return Post.objects.filter(Q(title__icontains=query))
 
-
+# class based post category view
+'''
 class PostCategoryView(LoginRequiredMixin, ListView):
     model = Post
     context_object_name = 'categories'
     template_name = 'blog/post_category_view.html'
     login_url = 'account_login'
-    #paginate_by = 3
 
     def get_queryset(self):
         return Post.objects.filter(category_id=self.kwargs.get('pk'))
+'''
+# function based post category view
 
 
+@login_required()
+def post_category_view(request, pk):
+    post_categories = Post.objects.filter(category_id=pk)
+    posts = Post.objects.all()
+    paginator = Paginator(post_categories, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    template = 'blog/post_category_view.html'
+    context = {
+        'page_obj': page_obj,
+        'posts': posts
+    }
+    return render(request, template, context)
