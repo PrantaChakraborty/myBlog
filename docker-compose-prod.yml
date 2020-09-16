@@ -4,8 +4,8 @@ services:
 
   web:
     build: .
-    command: python /code/manage.py runserver 0.0.0.0:8000
-    #command: gunicorn myblog.wsgi -b 0.0.0.0:8000
+    #command: python /code/manage.py runserver 0.0.0.0:8000
+    command: gunicorn myblog.wsgi -b 0.0.0.0:8000
     environment:
       - ENVIRONMENT=production
       - SECRET_KEY=@)3idi3^v=$$10)%jj@@un3+lfu-=y!uf3wy%tjectctx3#2i9e

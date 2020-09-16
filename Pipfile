@@ -12,6 +12,8 @@ pillow = "*"
 django-crispy-forms = "*"
 django-allauth = "*"
 whitenoise = "*"
+gunicorn = "*"
+dj-database-url = "*"
 
 [requires]
 python_version = "3.7"
